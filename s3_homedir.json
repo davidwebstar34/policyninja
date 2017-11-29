@@ -1,0 +1,31 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowGroupsToSeeBucketListInManagementConsole",
+            "Effect": "Allow",
+            "Action": ["s3:ListAllMyBuckets", "s3:GetBucketLocation"],
+            "Resource": ["arn:aws:s3:::*"]
+        },
+        {
+            "Sid": "AllowRootLevelListingOfThisBucketAndHomePrefix",
+            "Effect": "Allow",
+            "Action": ["s3:ListBucket"],
+            "Resource": ["arn:aws:s3:::myBucket"],
+            "Condition": {"StringEquals":{"s3:prefix":["","home/"],"s3:delimiter":["/"]}}
+        },
+        {
+            "Sid": "AllowListBucketOfASpecificUserPrefix",
+            "Effect": "Allow",
+            "Action": ["s3:ListBucket"],
+            "Resource": ["arn:aws:s3:::myBucket"],
+            "Condition": {"StringLike":{"s3:prefix":["home/${aws:username}/*"]}}
+        },
+{
+            "Sid": "AllowUserFullAccessToJustSpecificUserPrefix",
+            "Effect": "Allow",
+            "Action": ["s3:*"],
+            "Resource": ["arn:aws:s3:::myBucket/home/${aws:username}", "arn:aws:s3:::myBucket/home/${aws:username}/*"]
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GrantsAccessToEverythingOnEC2",
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "LockDockTypes",
+            "Effect": "Deny",
+            "Action": "ec2:RunInstances",
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "StringNotLikeIfExists": {
+                    "ec2:InstanceType": [
+                        "t1.*"
+                    ]
+                }
+            }
+        }
+    ]
+}

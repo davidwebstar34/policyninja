@@ -1,0 +1,16 @@
+{
+	"Version": "2020-06-01",
+	"Statement": [
+		{
+			"Sid": "DenyAMIsUnlessFromSpecificAccount",
+			"Effect": "Deny",
+			"Action": "ec2:RunInstances",
+			"Resource": "arn:aws:ec2:eu-west-1::image/{ami_id}",
+			"Condition": {
+				"StringNotEquals": {
+					"ec2:Owner": "{account_id}"
+				}
+			}
+		}
+	]
+}

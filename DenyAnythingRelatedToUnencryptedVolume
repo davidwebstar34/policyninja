@@ -1,0 +1,13 @@
+{
+  "Sid": "DenyAnythingRelatedToUnencryptedVolume",
+  "Effect": "Deny",
+  "Action": [
+    "ec2:*"
+  ],
+  "Condition": {
+    "Bool": {
+      "ec2:Encrypted": "false"
+    }
+  },
+  "Resource": "*"
+}

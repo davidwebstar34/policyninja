@@ -1,0 +1,41 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CloudShellUser",
+            "Effect": "Allow",
+            "Action": [
+                "cloudshell:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyUploadDownload",
+            "Effect": "Deny",
+            "Action": [
+                "cloudshell:GetFileDownloadUrls",
+                "cloudshell:GetFileUploadUrls"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "ssm:DescribeSessions",
+                "ssm:StartSession"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Action": [
+                "ssm:TerminateSession"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:ssm:*:*:session/${aws:userid}"
+            ]
+        }
+    ]
+}
